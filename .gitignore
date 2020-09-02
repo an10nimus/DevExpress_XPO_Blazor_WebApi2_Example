@@ -4,5 +4,5 @@
 DxSample/Client/bin/*
 DxSample/Client/obj/Debug/*
 
-DxSample/Server/bin/*
-DxSample/Server/obj/*
+*/bin
+*/Debug
