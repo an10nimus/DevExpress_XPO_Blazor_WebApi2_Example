@@ -1,8 +1,9 @@
 .vs*
 *.cache
 
-DxSample/Client/bin/*
-DxSample/Client/obj/Debug/*
+
+DxSample/Server/bin/
+DxSample/Server/obj/Debug/
 
 */bin
 */Debug
