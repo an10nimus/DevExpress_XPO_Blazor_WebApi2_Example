@@ -1,4 +1,4 @@
 ﻿<StaticWebAssets Version="1.0">
-  <ContentRoot BasePath="/" Path="D:\Testing\T883562\DxSample\Client\wwwroot\" />
-  <ContentRoot BasePath="/" Path="D:\Testing\T883562\DxSample\Client\bin\Debug\netstandard2.1\wwwroot\" />
+  <ContentRoot BasePath="/" Path="D:\dev\DevExpress_XPO_Blazor_WebApi2_Example\DxSample\Client\wwwroot\" />
+  <ContentRoot BasePath="/" Path="D:\dev\DevExpress_XPO_Blazor_WebApi2_Example\DxSample\Client\bin\Debug\netstandard2.1\wwwroot\" />
 </StaticWebAssets>

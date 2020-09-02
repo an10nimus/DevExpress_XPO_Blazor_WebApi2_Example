@@ -31,7 +31,6 @@ namespace DxSample.Server.Controllers {
         public static IDataStore DataStore;
         static XPOWebApiHelper() {
             string connectionString = "XpoProvider=InMemoryDataStore";
-            //string connectionString = "XpoProvider=Postgres;Server=127.0.0.1;User ID=postgres;Password=123;Database=postgres;Encoding=UNICODE";
             DataStore = XpoDefault.GetConnectionProvider(XpoDefault.GetConnectionPoolString(connectionString), AutoCreateOption.DatabaseAndSchema);
             using(var dataLayer = new SimpleDataLayer(DataStore)) {
             }

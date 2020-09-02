@@ -1,9 +1,0 @@
-D:\Testing\T883562\DxSample\Shared\bin\Debug\netstandard2.1\DxSample.Shared.deps.json
-D:\Testing\T883562\DxSample\Shared\bin\Debug\netstandard2.1\DxSample.Shared.dll
-D:\Testing\T883562\DxSample\Shared\bin\Debug\netstandard2.1\DxSample.Shared.pdb
-D:\Testing\T883562\DxSample\Shared\obj\Debug\netstandard2.1\DxSample.Shared.csprojAssemblyReference.cache
-D:\Testing\T883562\DxSample\Shared\obj\Debug\netstandard2.1\DxSample.Shared.AssemblyInfoInputs.cache
-D:\Testing\T883562\DxSample\Shared\obj\Debug\netstandard2.1\DxSample.Shared.AssemblyInfo.cs
-D:\Testing\T883562\DxSample\Shared\obj\Debug\netstandard2.1\DxSample.Shared.csproj.CoreCompileInputs.cache
-D:\Testing\T883562\DxSample\Shared\obj\Debug\netstandard2.1\DxSample.Shared.dll
-D:\Testing\T883562\DxSample\Shared\obj\Debug\netstandard2.1\DxSample.Shared.pdb
