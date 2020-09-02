@@ -1,0 +1,61 @@
+﻿@page "/orders"
+
+@using DevExpress.Xpo
+@using DxSample.Client.Models
+
+@inject HttpClient Http;
+@inject NavigationManager Nav;
+
+<h1>Orders</h1>
+
+@if(orders == null) {
+    <p><em>Loading...</em></p>
+} else {
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Order Date</th>
+                <th>Freight</th>
+                <th>Customer</th>
+                <th colspan="2">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(Order order in orders) {
+            <tr>
+                <td>@order.ProductName</td>
+                <td>@order.OrderDate.ToShortDateString()</td>
+                <td>@order.Freight</td>
+                @if(order.Customer != null) {
+                    <td>@order.Customer.ContactName</td>
+                } else {
+                    <td>N/A</td>
+                }
+                <td>
+                    <button class="btn btn-outline-secondary" @onclick="@(e => EditOrderAsync(order))">Edit</button>
+                    <button class="btn btn-outline-danger" @onclick="@(e => DeleteOrderAsync(order))">Delete</button>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+    <NavLink class="nav-link" href="/orders/create">Add Order</NavLink>
+}
+
+@code {
+    public static UnitOfWork uow = new UnitOfWork();
+    private List<Order> orders;
+
+    protected override async Task OnInitializedAsync() {
+        orders = await uow.Query<Order>().ToListAsync();
+    }
+    protected async Task DeleteOrderAsync(Order order_2BRemoved) {
+        order_2BRemoved.Delete();
+        await uow.CommitChangesAsync();
+        orders = await uow.Query<Order>().ToListAsync();
+    }
+    protected void EditOrderAsync(Order order_2BEdited) {
+        Nav.NavigateTo($"/orders/{order_2BEdited.Oid}/edit");
+    }
+}   

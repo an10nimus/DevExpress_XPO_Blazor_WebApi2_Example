@@ -1,0 +1,53 @@
+﻿@page "/customers"
+
+@using DevExpress.Xpo
+@using DxSample.Client.Models
+
+@inject HttpClient Http;
+@inject NavigationManager Nav;
+
+<h1>Customers</h1>
+
+@if(customers == null) {
+    <p><em>Loading...</em></p>
+} else {
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Contact Name</th>
+                <th colspan="2">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(Customer customer in customers) {
+                <tr>
+                    <td>@customer.ContactName</td>
+                    <td>
+                        <button class="btn btn-outline-secondary" @onclick="@(e => EditCustomer(customer))">Edit</button>
+                        <button class="btn btn-outline-danger" @onclick="@(e => DeleteCustomerAsync(customer))">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <NavLink class="nav-link" href="/customers/create">Add Customer</NavLink>
+}
+
+@code {
+    public static UnitOfWork uow = new UnitOfWork();
+    List<Customer> customers;
+
+    protected override async Task OnInitializedAsync() {
+        customers = await uow.Query<Customer>().ToListAsync();
+    }
+
+    protected async Task DeleteCustomerAsync(Customer customer_2BRemoved) {
+        customer_2BRemoved.Delete();
+        await uow.CommitChangesAsync();
+        customers = await uow.Query<Customer>().ToListAsync();
+    }
+
+    protected void EditCustomer(Customer customer_2BEdited) {
+        Nav.NavigateTo($"/customers/{customer_2BEdited.Oid}/edit");
+    }
+}

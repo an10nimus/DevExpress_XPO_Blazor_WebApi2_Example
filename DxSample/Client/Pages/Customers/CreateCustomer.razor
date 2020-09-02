@@ -1,0 +1,30 @@
+﻿@page "/customers/create"
+
+@using DxSample.Client.Models
+@using DevExpress.Xpo
+
+@inject HttpClient Http;
+@inject NavigationManager Nav;
+
+<h1>New Customer</h1>
+
+<EditForm Model="@customer" OnValidSubmit="SaveCustomerAsync">
+    <div class="form-grop">
+        <label>First Name:</label>
+        <InputText @bind-Value="customer.FirstName"></InputText>
+        <label>Last Name:</label>
+        <InputText @bind-Value="customer.LastName"></InputText>
+    </div>
+    <button class="btn btn-primary" type="submit">Save</button>
+</EditForm>
+
+
+@code {
+    public static UnitOfWork uow = new UnitOfWork();
+    private Customer customer = new Customer(uow);
+
+    private async Task SaveCustomerAsync() {
+        await uow.CommitChangesAsync();
+        Nav.NavigateTo("/customers");
+    }
+}

@@ -1,0 +1,58 @@
+﻿@page "/orders/{OrderOid:int}/edit"
+
+@using DxSample.Client.Models
+@using DevExpress.Xpo
+
+@inject HttpClient Http;
+@inject NavigationManager Nav;
+
+@if((order == null)|(customers == null)) {
+    <p><em>Loading...</em></p>
+} else {
+    <h1>@order.ProductName</h1>
+
+    <EditForm Model="@order" OnValidSubmit="SaveOrder">
+        <div class="form-group">
+            <label>Order Date:</label>
+            <InputDate @bind-Value="order.OrderDate"></InputDate>
+        </div>
+        <div class="form-group">
+            <label>Freight:</label>
+            <InputNumber @bind-Value="order.Freight"></InputNumber>
+        </div>
+        <div class="form-group">
+            <label>Customer:</label>
+            <select @bind="selected_customer_Oid">
+                <option value="-1">None</option>
+                @if(customers != null) {
+                    @foreach(Customer customer in customers) {
+                        <option value="@customer.Oid">@customer.ContactName</option>
+                    }
+                }
+            </select>
+        </div>
+        <button class="btn btn-primary" type="submit">Save</button>
+    </EditForm>
+}
+
+@code {
+    public static UnitOfWork uow = new UnitOfWork();
+    [Parameter]
+    public int OrderOid { get; set; }
+    private Order order;
+    private List<Customer> customers;
+    public int selected_customer_Oid {
+        get { return order.Customer==null?-1:order.Customer.Oid; }
+        set { order.Customer = uow.GetLoadedObjectByKey<Customer>(value); }
+    }
+
+    private async Task SaveOrder() {
+        await uow.CommitChangesAsync();
+        Nav.NavigateTo("/orders");
+    }
+
+    protected override async Task OnInitializedAsync() {
+        order = await uow.GetObjectByKeyAsync<Order>(OrderOid);
+        customers = await uow.Query<Customer>().ToListAsync();
+    }
+}

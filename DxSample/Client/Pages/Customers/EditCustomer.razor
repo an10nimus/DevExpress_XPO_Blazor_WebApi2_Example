@@ -1,0 +1,39 @@
+﻿@page "/customers/{CustomerOid:int}/edit"
+
+@using DxSample.Client.Models
+@using DevExpress.Xpo
+
+@inject HttpClient Http;
+@inject NavigationManager Nav;
+
+@if(customer == null) {
+    <p><em>Loading...</em></p>
+} else {
+    <h1>@customer.ContactName</h1>
+
+    <EditForm Model="@customer" OnValidSubmit="SaveCustomer">
+        <div class="form-group">
+            <label>First Name:</label>
+            <InputText @bind-Value="customer.FirstName"></InputText>
+            <label>Last Name:</label>
+            <InputText @bind-Value="customer.LastName"></InputText>
+        </div>
+        <button class="btn btn-primary" type="submit">Save</button>
+    </EditForm>
+}
+
+@code {
+    public static UnitOfWork uow = new UnitOfWork();
+    [Parameter]
+    public int CustomerOid { get; set; }
+    public Customer customer;
+
+    private async Task SaveCustomer() {
+        await uow.CommitChangesAsync();
+        Nav.NavigateTo("/customers");
+    }
+
+    protected override async Task OnInitializedAsync() {
+        customer = await uow.GetObjectByKeyAsync<Customer>(CustomerOid);
+    }
+}
