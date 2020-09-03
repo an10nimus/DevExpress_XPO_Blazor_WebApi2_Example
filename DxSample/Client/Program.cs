@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using DevExpress.Xpo.DB;
 using DevExpress.Xpo;
+using DevExpress.Xpo.Metadata;
+using DxSample.Client.Models;
 
 namespace DxSample.Client
 {
@@ -15,9 +17,14 @@ namespace DxSample.Client
             builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
             IDataStore DataStore = new WebAPIDataStore(builder.HostEnvironment.BaseAddress);
-            XpoDefault.DataLayer = new SimpleDataLayer(DataStore);
+            XPDictionary Dictionary = new ReflectionDictionary();
+            Dictionary.GetDataStoreSchema(typeof(Customer), typeof(Order));
+            IDataLayer DataLayer = new SimpleDataLayer(Dictionary, DataStore);
+            builder.Services.AddSingleton(DataLayer);
 
+            XpoDefault.DataLayer = null;
             XpoDefault.Session = null;
+
             builder.Build().RunAsync();
         }
     }

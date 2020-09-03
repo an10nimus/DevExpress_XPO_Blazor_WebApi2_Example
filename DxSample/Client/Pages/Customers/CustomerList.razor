@@ -1,9 +1,6 @@
 ﻿@page "/customers"
 
-@using DevExpress.Xpo
-@using DxSample.Client.Models
-
-@inject HttpClient Http;
+@inject IDataLayer DataLayer;
 @inject NavigationManager Nav;
 
 <h1>Customers</h1>
@@ -34,10 +31,11 @@
 }
 
 @code {
-    public static UnitOfWork uow = new UnitOfWork();
+    public UnitOfWork uow;
     List<Customer> customers;
 
     protected override async Task OnInitializedAsync() {
+        uow = new UnitOfWork(DataLayer);
         customers = await uow.Query<Customer>().ToListAsync();
     }
 

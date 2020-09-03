@@ -1,5 +1,5 @@
 .vs*
 *.cache
 
-*/bin
-*/Debug
+[Bb]in/
+[Oo]bj/

@@ -1,9 +1,7 @@
 ﻿@page "/customers/create"
 
-@using DxSample.Client.Models
-@using DevExpress.Xpo
 
-@inject HttpClient Http;
+@inject IDataLayer DataLayer;
 @inject NavigationManager Nav;
 
 <h1>New Customer</h1>
@@ -20,11 +18,15 @@
 
 
 @code {
-    public static UnitOfWork uow = new UnitOfWork();
-    private Customer customer = new Customer(uow);
+    public UnitOfWork uow;
+    private Customer customer;
 
     private async Task SaveCustomerAsync() {
         await uow.CommitChangesAsync();
         Nav.NavigateTo("/customers");
+    }
+    protected override void OnInitialized() {
+        uow = new UnitOfWork(DataLayer);
+        customer = new Customer(uow);
     }
 }
