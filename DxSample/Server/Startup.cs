@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using DxSample.Server.Services;
 using DevExpress.Xpo.DB;
-using DxSample.Client.Models;
 
 namespace DxSample.Server
 {
@@ -21,12 +21,9 @@ namespace DxSample.Server
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllersWithViews();
             services.AddRazorPages();
-            services.AddXpoDefaultUnitOfWork(true, options => options.UseConnectionString(Configuration.GetConnectionString("PostgreSQL"))//UseInMemoryDataStore(true)//ConnectionString(Configuration.GetConnectionString("XpoProvider"))//"MSSqlServer"))
-                .UseAutoCreationOption(AutoCreateOption.DatabaseAndSchema)
-                .UseEntityTypes(typeof(Customer), typeof(Order)));
+            services.AddSingleton(XpoDataStoreService.Create);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

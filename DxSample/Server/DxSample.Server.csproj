@@ -1,8 +1,12 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="appsettings.json~RF2663964e.TMP" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="DevExpress.Xpo" Version="20.1.7" />

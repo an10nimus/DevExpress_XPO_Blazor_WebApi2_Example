@@ -1,9 +1,6 @@
 ﻿@page "/orders/create"
 
-@using DxSample.Client.Models
-@using DevExpress.Xpo
-
-@inject HttpClient Http;
+@inject IDataLayer DataLayer;
 @inject NavigationManager Nav;
 
 @if(order == null) {
@@ -40,8 +37,8 @@
 }
 
 @code {
-    public static UnitOfWork uow = new UnitOfWork();
-    private Order order = new Order(uow);
+    public UnitOfWork uow;
+    private Order order;
     private List<Customer> customers;
     public int? selected_customer_Oid {
         get { return order.Customer == null ? -1 : order.Customer.Oid; }
@@ -54,6 +51,8 @@
     }
 
     protected override async Task OnInitializedAsync() {
+        uow = new UnitOfWork(DataLayer);
+        order = new Order(uow);
         customers = await uow.Query<Customer>().ToListAsync();
     }
 }

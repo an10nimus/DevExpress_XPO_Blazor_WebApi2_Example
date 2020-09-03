@@ -1,9 +1,6 @@
 ﻿@page "/customers/{CustomerOid:int}/edit"
 
-@using DxSample.Client.Models
-@using DevExpress.Xpo
-
-@inject HttpClient Http;
+@inject IDataLayer DataLayer;
 @inject NavigationManager Nav;
 
 @if(customer == null) {
@@ -23,7 +20,7 @@
 }
 
 @code {
-    public static UnitOfWork uow = new UnitOfWork();
+    public UnitOfWork uow;
     [Parameter]
     public int CustomerOid { get; set; }
     public Customer customer;
@@ -34,6 +31,7 @@
     }
 
     protected override async Task OnInitializedAsync() {
+        uow = new UnitOfWork(DataLayer);
         customer = await uow.GetObjectByKeyAsync<Customer>(CustomerOid);
     }
 }
