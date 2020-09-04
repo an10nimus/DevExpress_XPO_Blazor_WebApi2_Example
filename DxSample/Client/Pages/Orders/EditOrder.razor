@@ -1,4 +1,5 @@
-﻿@page "/orders/{OrderOid:int}/edit"
+﻿@page "/orders/create"
+@page "/orders/{OrderOid:int}/edit"
 
 @inject IDataLayer DataLayer;
 @inject NavigationManager Nav;
@@ -6,27 +7,35 @@
 @if((order == null)|(customers == null)) {
     <p><em>Loading...</em></p>
 } else {
-    <h1>@order.ProductName</h1>
+    <h1>@(order == null ? order.ProductName : "New Order")</h1>
 
     <EditForm Model="@order" OnValidSubmit="SaveOrder">
-        <div class="form-group">
-            <label>Order Date:</label>
-            <InputDate @bind-Value="order.OrderDate"></InputDate>
+        <div class="form-row">
+            <div class="form-group col">
+                <label>Product Name:</label>
+                <InputText @bind-Value="order.ProductName" class="form-control"></InputText>
+            </div>
+            <div class="form-group col">
+                <label>Order Date:</label>
+                <InputDate @bind-Value="order.OrderDate" class="form-control"></InputDate>
+            </div>
         </div>
-        <div class="form-group">
-            <label>Freight:</label>
-            <InputNumber @bind-Value="order.Freight"></InputNumber>
-        </div>
-        <div class="form-group">
-            <label>Customer:</label>
-            <select @bind="selected_customer_Oid">
-                <option value="-1">None</option>
-                @if(customers != null) {
-                    @foreach(Customer customer in customers) {
-                        <option value="@customer.Oid">@customer.ContactName</option>
+        <div class="form-row">
+            <div class="form-group col">
+                <label>Freight:</label>
+                <InputNumber @bind-Value="order.Freight" class="form-control"></InputNumber>
+            </div>
+            <div class="form-group col">
+                <label>Customer:</label>
+                <select @bind="selected_customer_Oid" class="form-control">
+                    <option value="-1">None</option>
+                    @if(customers != null) {
+                        @foreach(Customer customer in customers) {
+                            <option value="@customer.Oid">@customer.ContactName</option>
+                        }
                     }
-                }
-            </select>
+                </select>
+            </div>
         </div>
         <button class="btn btn-primary" type="submit">Save</button>
     </EditForm>
@@ -35,7 +44,7 @@
 @code {
     public UnitOfWork uow;
     [Parameter]
-    public int OrderOid { get; set; }
+    public int? OrderOid { get; set; }
     private Order order;
     private List<Customer> customers;
     public int selected_customer_Oid {
@@ -50,7 +59,10 @@
 
     protected override async Task OnInitializedAsync() {
         uow = new UnitOfWork(DataLayer);
-        order = await uow.GetObjectByKeyAsync<Order>(OrderOid);
+        if(OrderOid.HasValue)
+            order = await uow.GetObjectByKeyAsync<Order>(OrderOid);
+        else
+            order = new Order(uow);
         customers = await uow.Query<Customer>().ToListAsync();
     }
 }

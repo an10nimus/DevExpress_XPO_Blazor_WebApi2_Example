@@ -25,5 +25,8 @@ namespace DxSample.Client.Models {
             get { return fCustomer; }
             set { SetPropertyValue(nameof(Customer), ref fCustomer, value); }
         }
+        public override void AfterConstruction() {
+            OrderDate = DateTime.Today;
+        }
     }
 }
