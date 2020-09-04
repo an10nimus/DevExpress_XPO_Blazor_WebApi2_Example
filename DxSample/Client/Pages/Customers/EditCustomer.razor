@@ -1,4 +1,5 @@
-﻿@page "/customers/{CustomerOid:int}/edit"
+﻿@page "/customers/create"
+@page "/customers/{CustomerOid:int}/edit"
 
 @inject IDataLayer DataLayer;
 @inject NavigationManager Nav;
@@ -22,7 +23,7 @@
 @code {
     public UnitOfWork uow;
     [Parameter]
-    public int CustomerOid { get; set; }
+    public int? CustomerOid { get; set; }
     public Customer customer;
 
     private async Task SaveCustomer() {
@@ -32,6 +33,9 @@
 
     protected override async Task OnInitializedAsync() {
         uow = new UnitOfWork(DataLayer);
-        customer = await uow.GetObjectByKeyAsync<Customer>(CustomerOid);
+        if(CustomerOid.HasValue)
+            customer = await uow.GetObjectByKeyAsync<Customer>(CustomerOid.Value);
+        else
+            customer = new Customer(uow);
     }
 }

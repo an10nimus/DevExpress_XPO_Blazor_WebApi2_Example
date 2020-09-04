@@ -1,4 +1,5 @@
-﻿@page "/orders/{OrderOid:int}/edit"
+﻿@page "/orders/create"
+@page "/orders/{OrderOid:int}/edit"
 
 @inject IDataLayer DataLayer;
 @inject NavigationManager Nav;
@@ -35,7 +36,7 @@
 @code {
     public UnitOfWork uow;
     [Parameter]
-    public int OrderOid { get; set; }
+    public int? OrderOid { get; set; }
     private Order order;
     private List<Customer> customers;
     public int selected_customer_Oid {
@@ -50,7 +51,10 @@
 
     protected override async Task OnInitializedAsync() {
         uow = new UnitOfWork(DataLayer);
-        order = await uow.GetObjectByKeyAsync<Order>(OrderOid);
+        if(OrderOid.HasValue)
+            order = await uow.GetObjectByKeyAsync<Order>(OrderOid);
+        else
+            order = new Order(uow);
         customers = await uow.Query<Customer>().ToListAsync();
     }
 }
