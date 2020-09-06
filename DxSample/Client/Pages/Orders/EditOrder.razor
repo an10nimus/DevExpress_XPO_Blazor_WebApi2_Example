@@ -4,10 +4,10 @@
 @inject IDataLayer DataLayer;
 @inject NavigationManager Nav;
 
-@if((order == null)|(customers == null)) {
+@if(order == null || customers == null) {
     <p><em>Loading...</em></p>
 } else {
-    <h1>@(order == null ? order.ProductName : "New Order")</h1>
+    <h1>@(string.IsNullOrEmpty(order.ProductName) ? "---" : order.ProductName)</h1>
 
     <EditForm Model="@order" OnValidSubmit="SaveOrder">
         <div class="form-row">
@@ -27,14 +27,7 @@
             </div>
             <div class="form-group col">
                 <label>Customer:</label>
-                <select @bind="selected_customer_Oid" class="form-control">
-                    <option value="-1">None</option>
-                    @if(customers != null) {
-                        @foreach(Customer customer in customers) {
-                            <option value="@customer.Oid">@customer.ContactName</option>
-                        }
-                    }
-                </select>
+                <InputSelectXpoObject @bind-Value="order.Customer" DataSource="customers" DisplayMember="ContactName" class="form-control"></InputSelectXpoObject>
             </div>
         </div>
         <button class="btn btn-primary" type="submit">Save</button>
@@ -47,10 +40,6 @@
     public int? OrderOid { get; set; }
     private Order order;
     private List<Customer> customers;
-    public int selected_customer_Oid {
-        get { return order.Customer==null?-1:order.Customer.Oid; }
-        set { order.Customer = uow.GetLoadedObjectByKey<Customer>(value); }
-    }
 
     private async Task SaveOrder() {
         await uow.CommitChangesAsync();

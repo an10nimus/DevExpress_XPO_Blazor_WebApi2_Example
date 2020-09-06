@@ -7,7 +7,7 @@
 @if(customer == null) {
     <p><em>Loading...</em></p>
 } else {
-    <h1>@customer.ContactName</h1>
+<h1>@(string.IsNullOrEmpty(customer.ContactName) ? "---" : customer.ContactName)</h1>
 
     <EditForm Model="@customer" OnValidSubmit="SaveCustomer">
         <div class="form-group">
