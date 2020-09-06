@@ -14,14 +14,8 @@ namespace DxSample.Server.Controllers {
             this.DataStoreService = dataStoreService;
         }
         [HttpPost("{method}")]
-        public ActionResult<XPOContentHolder> Get(string method, [FromBody]XPOContentHolder args) {
-            return new XPOContentHolder {
-                content = DataStoreService.Handle(method, args.content)
-            };
+        public ActionResult<string> Get(string method, [FromBody]string args) {
+            return DataStoreService.Handle(method, args);
         }
-    }
-
-    public class XPOContentHolder {
-        public string content { get; set; }
     }
 }
