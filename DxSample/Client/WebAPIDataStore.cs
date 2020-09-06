@@ -90,70 +90,46 @@ namespace DxSample.Client {
         }
 
         public async Task<ModificationResult> ModifyDataAsync(CancellationToken cancellationToken, params ModificationStatement[] dmlStatements) {
-            cancellationToken.ThrowIfCancellationRequested();
-            var serialized_modstatement = Serialize<ModificationStatement[]>(dmlStatements);
-            XPOContentHolder obj2 = new XPOContentHolder() {
-                content = serialized_modstatement
-            };
-            var content = new StringContent(JsonSerializer.Serialize(obj2), Encoding.UTF8, "application/json");
-            HttpResponseMessage response = await client.PostAsync($"api/xpo/modifydataasync", content);
+            string serialized_modstatement = Serialize(dmlStatements);
+            var content = new StringContent(JsonSerializer.Serialize(serialized_modstatement), Encoding.UTF8, "application/json");
+            HttpResponseMessage response = await client.PostAsync($"api/xpo/modifydataasync", content, cancellationToken).ConfigureAwait(false);
             response.EnsureSuccessStatusCode();
-            var some_var = await response.Content.ReadAsStringAsync();
-            XPOContentHolder obj = JsonSerializer.Deserialize<XPOContentHolder>(some_var);
-            ModificationResult response_deserialized = Deserialize<OperationResult<ModificationResult>>(obj.content).Result;
+            string result = JsonSerializer.Deserialize<string>(await response.Content.ReadAsStringAsync().ConfigureAwait(false));
+            ModificationResult response_deserialized = Deserialize<OperationResult<ModificationResult>>(result).Result;
             return response_deserialized;
         }
 
-        public class XPOContentHolder {
-            public string content { get; set; }
-        }
-
         public async Task<UpdateSchemaResult> UpdateSchemaAsync(CancellationToken cancellationToken, bool doNotCreateIfFirstTableNotExist, params DBTable[] tables) {
-            cancellationToken.ThrowIfCancellationRequested();
-            var serialized_data = Serialize<DBTable[]>(tables);
-            var serialized_bool = Serialize<bool>(doNotCreateIfFirstTableNotExist);
-            XPOContentHolder obj2 = new XPOContentHolder() { 
-                content = serialized_bool + '|' + serialized_data
-            };
-            var content = new StringContent(JsonSerializer.Serialize(obj2), Encoding.UTF8, "application/json");
-            try { 
-                HttpResponseMessage response = await client.PostAsync($"api/xpo/updateschema", content);
-                response.EnsureSuccessStatusCode();
-                var some_var = await response.Content.ReadAsStringAsync();
-                XPOContentHolder obj = JsonSerializer.Deserialize<XPOContentHolder>(some_var);
-                UpdateSchemaResult response_deserialized = Deserialize<OperationResult<UpdateSchemaResult>>(obj.content).Result;
-                return response_deserialized;
-            } catch(Exception ex) {
-                Trace.WriteLine(ex.Message);
-                throw;
-            }            
+            string serialized_data = Serialize(tables);
+            string serialized_bool = Serialize(doNotCreateIfFirstTableNotExist);
+            var content = new StringContent(JsonSerializer.Serialize(serialized_bool + '|' + serialized_data), Encoding.UTF8, "application/json");
+            HttpResponseMessage response = await client.PostAsync($"api/xpo/updateschema", content, cancellationToken).ConfigureAwait(false);
+            response.EnsureSuccessStatusCode();
+            string result = JsonSerializer.Deserialize<string>(await response.Content.ReadAsStringAsync().ConfigureAwait(false));
+            UpdateSchemaResult response_deserialized = Deserialize<OperationResult<UpdateSchemaResult>>(result).Result;
+            return response_deserialized;
         }
 
         public async Task<SelectedData> SelectDataAsync(CancellationToken cancellationToken, params SelectStatement[] selects) {
-            cancellationToken.ThrowIfCancellationRequested();
-            var serialized_selects = Serialize<SelectStatement[]>(selects);
-            XPOContentHolder obj2 = new XPOContentHolder() {
-                content = serialized_selects
-            };
-            var content = new StringContent(JsonSerializer.Serialize(obj2), Encoding.UTF8, "application/json");
-            HttpResponseMessage response = await client.PostAsync($"api/xpo/selectdataasync", content);
+            string serialized_selects = Serialize(selects);
+            var content = new StringContent(JsonSerializer.Serialize(serialized_selects), Encoding.UTF8, "application/json");
+            HttpResponseMessage response = await client.PostAsync($"api/xpo/selectdataasync", content, cancellationToken).ConfigureAwait(false);
             response.EnsureSuccessStatusCode();
-            var some_var = await response.Content.ReadAsStringAsync();
-            XPOContentHolder obj = JsonSerializer.Deserialize<XPOContentHolder>(some_var);
-            SelectedData response_deserialized = Deserialize<OperationResult<SelectedData>>(obj.content).Result;
+            string result = JsonSerializer.Deserialize<string>(await response.Content.ReadAsStringAsync().ConfigureAwait(false));
+            SelectedData response_deserialized = Deserialize<OperationResult<SelectedData>>(result).Result;
             return response_deserialized;
         }
 
         public ModificationResult ModifyData(params ModificationStatement[] dmlStatements) {
-            throw new NotImplementedException();
+            throw new NotImplementedException("HttpClient does not support synchronous operations");
         }
 
         public UpdateSchemaResult UpdateSchema(bool doNotCreateIfFirstTableNotExist, params DBTable[] tables) {
-                throw new NotImplementedException();
+                throw new NotImplementedException("HttpClient does not support synchronous operations");
             }
 
         public SelectedData SelectData(params SelectStatement[] selects) {
-            throw new NotImplementedException();
+            throw new NotImplementedException("HttpClient does not support synchronous operations");
         }
     }
 }

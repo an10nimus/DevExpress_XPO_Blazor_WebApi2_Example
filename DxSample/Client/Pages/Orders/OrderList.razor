@@ -27,7 +27,7 @@
                 @if(order.Customer != null) {
                     <td>@order.Customer.ContactName</td>
                 } else {
-                    <td>N/A</td>
+                    <td>None</td>
                 }
                 <td>
                     <button class="btn btn-outline-secondary" @onclick="@(e => EditOrderAsync(order))">Edit</button>
