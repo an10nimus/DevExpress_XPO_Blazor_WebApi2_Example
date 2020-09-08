@@ -1,6 +1,6 @@
 ﻿using DevExpress.Xpo;
 
-namespace DxSample.Client.Models {
+namespace WebAssemblySource.Models {
     
     public class Customer : XPObject {
         public Customer(Session session) : base(session) { }

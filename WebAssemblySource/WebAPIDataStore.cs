@@ -14,7 +14,7 @@ using System.Xml.Serialization;
 using System.Diagnostics;
 using System.Text.Json;
 
-namespace DxSample.Client {
+namespace WebAssemblySource {
     internal class WebAPIDataStore : IDataStore, IDataStoreAsync {
         static HttpClient client = new HttpClient();
         private string url;

@@ -1,10 +1,10 @@
-﻿using DxSample.Server.Services;
+﻿using WebAssemblyServer.Services;
 
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 
-namespace DxSample.Server.Controllers {
+namespace WebAssemblyServer.Controllers {
     [Route("api/[controller]")]
     [ApiController]
     [EnableCors("AllowAll")]
@@ -14,7 +14,7 @@ namespace DxSample.Server.Controllers {
             this.DataStoreService = dataStoreService;
         }
         [HttpPost("{method}")]
-        public ActionResult<string> Get(string method, [FromBody]string args) {
+        public ActionResult<string> Post(string method, [FromBody]string args) {
             return DataStoreService.Handle(method, args);
         }
     }

@@ -5,12 +5,10 @@ using Microsoft.Extensions.DependencyInjection;
 using DevExpress.Xpo.DB;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
-using DxSample.Client.Models;
+using WebAssemblySource.Models;
 
-namespace DxSample.Client
-{
-    public class Program
-    {
+namespace WebAssemblySource {
+    public class Program {
         public static void Main(string[] args) {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("app");
