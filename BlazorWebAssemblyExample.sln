@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAssemblySource", "C:\Users\trenin.georgiy\source\repos\WebApiClient5\WebAssemblySource.csproj", "{278913E8-B75A-43E2-8BA5-73D5D2CF455E}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAssemblyServer", "WebAssemblyServer\WebAssemblyServer.csproj", "{994B4F02-60C2-46AB-8DAC-8301A2C888F7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAssemblySource", "WebAssemblySource\WebAssemblySource.csproj", "{67E78C6A-8947-4E2F-A972-0589A8E10691}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{278913E8-B75A-43E2-8BA5-73D5D2CF455E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{278913E8-B75A-43E2-8BA5-73D5D2CF455E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{278913E8-B75A-43E2-8BA5-73D5D2CF455E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{278913E8-B75A-43E2-8BA5-73D5D2CF455E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{994B4F02-60C2-46AB-8DAC-8301A2C888F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{994B4F02-60C2-46AB-8DAC-8301A2C888F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{994B4F02-60C2-46AB-8DAC-8301A2C888F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{994B4F02-60C2-46AB-8DAC-8301A2C888F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67E78C6A-8947-4E2F-A972-0589A8E10691}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67E78C6A-8947-4E2F-A972-0589A8E10691}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67E78C6A-8947-4E2F-A972-0589A8E10691}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67E78C6A-8947-4E2F-A972-0589A8E10691}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -14,9 +14,5 @@
     <PackageReference Include="Npgsql" Version="4.1.4" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="C:\Users\trenin.georgiy\source\repos\WebApiClient5\WebAssemblySource.csproj" />
-  </ItemGroup>
-
 
 </Project>

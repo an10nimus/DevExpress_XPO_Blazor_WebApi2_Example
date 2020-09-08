@@ -7,7 +7,7 @@ using DevExpress.Xpo.Metadata;
 using System.ComponentModel;
 using System;
 
-namespace WebApiClient.Shared {
+namespace WebAssemblySource.Shared {
     public class InputSelectXpoObject<TObject> : InputBase<TObject> {
         const string EmptyValueMagicKeyword = "#EMPTY#";
         [Parameter] public IList<TObject> DataSource { get; set; }
