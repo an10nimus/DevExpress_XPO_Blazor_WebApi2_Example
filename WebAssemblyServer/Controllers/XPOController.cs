@@ -14,7 +14,7 @@ namespace WebAssemblyServer.Controllers {
             this.DataStoreService = dataStoreService;
         }
         [HttpPost("{method}")]
-        public ActionResult<string> Get(string method, [FromBody]string args) {
+        public ActionResult<string> Post(string method, [FromBody]string args) {
             return DataStoreService.Handle(method, args);
         }
     }
