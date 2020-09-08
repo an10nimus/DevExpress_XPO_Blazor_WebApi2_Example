@@ -1,7 +1,8 @@
 ﻿using DevExpress.Xpo;
 using System;
 
-namespace DxSample.Client.Models {
+namespace WebApiClient
+{
     public class Order :XPObject {
         public Order(Session session) : base(session) { }
         private string fProductName;

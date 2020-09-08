@@ -1,10 +1,10 @@
-﻿using DxSample.Server.Services;
+﻿using WebAssemblyServer.Services;
 
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 
-namespace DxSample.Server.Controllers {
+namespace WebAssemblyServer.Controllers {
     [Route("api/[controller]")]
     [ApiController]
     [EnableCors("AllowAll")]

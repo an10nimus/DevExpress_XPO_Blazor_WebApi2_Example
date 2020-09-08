@@ -11,7 +11,7 @@ using DevExpress.Xpo.Helpers;
 
 using Microsoft.Extensions.Configuration;
 
-namespace DxSample.Server.Services {
+namespace WebAssemblyServer.Services {
     public class XpoDataStoreService {
         public static XpoDataStoreService Create(IServiceProvider serviceProvider) {
             IConfiguration config = (IConfiguration)serviceProvider.GetService(typeof(IConfiguration));

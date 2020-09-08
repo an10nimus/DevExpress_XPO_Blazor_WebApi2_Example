@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace DxSample.Server
+namespace WebAssemblyServer
+
 {
     public class Program
     {

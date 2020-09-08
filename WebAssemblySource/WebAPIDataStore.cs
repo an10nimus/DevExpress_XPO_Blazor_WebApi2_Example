@@ -11,10 +11,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 using System.Xml.Serialization;
-using System.Diagnostics;
 using System.Text.Json;
 
-namespace DxSample.Client {
+namespace WebApiClient {
     internal class WebAPIDataStore : IDataStore, IDataStoreAsync {
         static HttpClient client = new HttpClient();
         private string url;

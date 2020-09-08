@@ -3,11 +3,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using DxSample.Server.Services;
+using WebAssemblyServer.Services;
 using DevExpress.Xpo.DB;
 
-namespace DxSample.Server
-{
+namespace WebAssemblyServer {
     public class Startup
     {
         public Startup(IConfiguration configuration)
